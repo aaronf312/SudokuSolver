@@ -4,7 +4,6 @@ from pydantic import BaseModel,Field
 from typing import List
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
-from typing import List
 
 app = FastAPI()
 
@@ -16,15 +15,18 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+@app.get("/getBoard")
+def get_unsolved():
+    url = "https://sudoku-api.vercel.app/api/dosuku?query={newboard(limit:1){grids{value,solution}}}"
+    response = requests.get(url)
+    data = response.json()
 
-url = "https://sudoku-api.vercel.app/api/dosuku?query={newboard(limit:1){grids{value,solution}}}"
-response = requests.get(url)
-data = response.json()
+    grid_info = data['newboard']['grids'][0]
 
-grid_info = data['newboard']['grids'][0]
+    board = grid_info['value']
+    solution = grid_info['solution']
+    return {"board": board}
 
-board = grid_info['value']
-solution = grid_info['solution']
 
 
 cols = '123456789'
@@ -96,8 +98,6 @@ def findPeers(unitlist,valueMap):
         peers[c] = cVals
     return peers
 
-global peers 
-
 #print(valueMap)
 
 def eliminate(values, peers):
@@ -154,7 +154,7 @@ def reduce_puzzle(values, peers):
             return values
 
 
-def recursive_search(values):
+def recursive_search(values,peers):
     min_len = 10
     min_cell = None
     max_len = 0
@@ -175,7 +175,7 @@ def recursive_search(values):
 
         reduced = reduce_puzzle(copy,peers)
         if reduced is not False:
-            result = recursive_search(reduced)
+            result = recursive_search(reduced,peers)
             if result:
                 return result
     return False
@@ -193,7 +193,7 @@ def solve_sudoku(data: SudokuInput):
     if values is False:
         raise HTTPException(status_code=422, detail="Invalid board.")
         
-    final_result = recursive_search(values)
+    final_result = recursive_search(values,peers)
     
     if not final_result:
         raise HTTPException(status_code=422, detail="No solution found.")
