@@ -1,8 +1,20 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+# --- PYTHON / BACKEND ---
+backend/__pycache__/
+backend/venv/
+backend/.venv/
+**/__pycache__/
+*.py[cod]
+*$py.class
+*.so
+venv/
+.venv/
+ENV/
+env/
+.pytest_cache/
 
-# dependencies
-/node_modules
-/.pnp
+# --- NODE / FRONTEND ---
+node_modules/
+.pnp
 .pnp.*
 .yarn/*
 !.yarn/patches
@@ -11,14 +23,15 @@
 !.yarn/versions
 
 # testing
-/coverage
+coverage/
 
 # next.js
-/.next/
-/out/
+.next/
+out/
 
 # production
-/build
+build/
+dist/
 
 # misc
 .DS_Store
@@ -30,7 +43,7 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-# env files (can opt-in for committing if needed)
+# env files
 .env*
 
 # vercel

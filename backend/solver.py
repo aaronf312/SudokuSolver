@@ -155,8 +155,6 @@ def recursive_search(values):
         print("IS GOOD")
         return values
     if min_len == 0:
-        print("FAIL BITC" \
-        "")
         return False
     for c in values[min_cell]:
         copy = values.copy()
@@ -182,4 +180,4 @@ if values is not False:
     else:
         print("No solution found.")
 else:
-    print("Initial board invalid.")
+    print("Initial board invalid.") 
