@@ -12,6 +12,8 @@ ENV/
 env/
 .pytest_cache/
 
+backend/model/data/
+
 # --- NODE / FRONTEND ---
 node_modules/
 .pnp

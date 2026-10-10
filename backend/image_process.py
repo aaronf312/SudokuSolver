@@ -15,7 +15,7 @@ ocr_engine = RapidOCR()
 
 #Deskew
 
-#Borders
+#Borders (Want a 288x288 grid by end for cnn )
 
 def extract_text(image_path: str):
     #Reading from react
@@ -35,4 +35,4 @@ def extract_text(image_path: str):
         print("No text detected.")
 
 if __name__ == "__main__":
-    extract_text("words_test.png")
+    extract_text("number.png")
