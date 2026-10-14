@@ -13,7 +13,8 @@ env/
 .pytest_cache/
 
 backend/model/data/
-
+backend/output_cells
+backend/output_directory
 # --- NODE / FRONTEND ---
 node_modules/
 .pnp
